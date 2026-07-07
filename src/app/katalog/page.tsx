@@ -1,0 +1,89 @@
+import { supabase } from "@/lib/supabase";
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
+import ProductCard from "@/components/ProductCard";
+
+export const revalidate = 60;
+
+export const metadata = {
+  title: "Katalog Produk - Singa Muda Coffee",
+  description: "Jelajahi seluruh menu kopi dan produk roastery Singa Muda.",
+};
+
+export default async function KatalogPage() {
+  // Fetch settings for Navbar and Footer
+  const { data: settingsData } = await supabase.from("site_settings").select("*").limit(1).single();
+  const logoUrl = settingsData?.logo_url || "https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?q=80&w=300";
+
+  // Fetch all products
+  const { data: products } = await supabase
+    .from("products")
+    .select("*")
+    .order("created_at", { ascending: false });
+
+  const allProducts = products || [];
+  
+  // Categorize for display if needed, but we can also just display all with a filter.
+  // For a simple static rendering, we will group them.
+  const coffeeProducts = allProducts.filter(p => p.category === 'coffee');
+  const roasteryProducts = allProducts.filter(p => p.category === 'roastery');
+
+  return (
+    <main className="bg-stone-900 min-h-screen">
+      <Navbar logoUrl={logoUrl} />
+      
+      <div className="pt-32 pb-20 px-4 sm:px-8 max-w-7xl mx-auto">
+        <div className="text-center mb-16">
+          <h1 className="text-4xl sm:text-5xl font-black text-white uppercase tracking-tight mb-4">
+            Katalog <span className="text-amber-500">Produk</span>
+          </h1>
+          <p className="text-stone-400 max-w-2xl mx-auto">
+            Temukan sajian kopi terbaik dan biji kopi pilihan langsung dari roastery kami.
+          </p>
+        </div>
+
+        {/* Coffee Menu Section */}
+        <section className="mb-20">
+          <div className="flex items-center gap-4 mb-8 border-b border-stone-800 pb-4">
+            <i className="fa-solid fa-mug-hot text-2xl text-amber-500"></i>
+            <h2 className="text-2xl font-black text-white uppercase tracking-wider">Menu Kopi</h2>
+          </div>
+          
+          {coffeeProducts.length === 0 ? (
+            <div className="text-center py-10 bg-stone-950 border border-stone-800/40 rounded-lg">
+              <p className="text-stone-500">Belum ada menu kopi yang ditambahkan.</p>
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+              {coffeeProducts.map(product => (
+                <ProductCard key={product.id} product={product} />
+              ))}
+            </div>
+          )}
+        </section>
+
+        {/* Roastery Section */}
+        <section>
+          <div className="flex items-center gap-4 mb-8 border-b border-stone-800 pb-4">
+            <i className="fa-solid fa-fire text-2xl text-amber-500"></i>
+            <h2 className="text-2xl font-black text-white uppercase tracking-wider">Produk Roastery</h2>
+          </div>
+          
+          {roasteryProducts.length === 0 ? (
+            <div className="text-center py-10 bg-stone-950 border border-stone-800/40 rounded-lg">
+              <p className="text-stone-500">Belum ada produk roastery yang ditambahkan.</p>
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+              {roasteryProducts.map(product => (
+                <ProductCard key={product.id} product={product} />
+              ))}
+            </div>
+          )}
+        </section>
+      </div>
+
+      <Footer />
+    </main>
+  );
+}
