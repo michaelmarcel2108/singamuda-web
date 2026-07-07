@@ -8,6 +8,7 @@ type Product = {
   id: string;
   category: string;
   name: string;
+  slug?: string;
   description: string;
   price: number;
   weight: string | null;
