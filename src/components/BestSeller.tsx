@@ -15,7 +15,7 @@ export default function BestSellerSection({ bestSellers }: { bestSellers: any[] 
         </h2>
         <div className="w-12 h-0.5 bg-amber-500 mx-auto mt-3"></div>
       </div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
         {bestSellers.length === 0 && (
           <p className="text-stone-500 text-center col-span-full">Belum ada data best seller.</p>
         )}

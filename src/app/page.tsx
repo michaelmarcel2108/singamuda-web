@@ -8,6 +8,7 @@ import Roastery from "@/components/Roastery";
 import Footer from "@/components/Footer";
 
 import SocialReviews from "@/components/SocialReviews";
+import Location from "@/components/Location";
 
 export const revalidate = 60; // revalidate every 60 seconds
 
@@ -60,6 +61,7 @@ export default async function Home() {
         embedInstagram={finalSettings.embedInstagram}
         embedYoutube={finalSettings.embedYoutube}
       />
+      <Location />
       <Footer />
     </main>
   );

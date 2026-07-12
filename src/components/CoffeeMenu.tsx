@@ -30,27 +30,24 @@ export default function CoffeeMenu({ menuList }: { menuList: any[] }) {
         <div className="inline-flex bg-stone-900 border border-stone-800 p-1 rounded-full">
           <button
             onClick={() => setActiveTab('minuman')}
-            className={`px-6 py-2.5 rounded-full text-sm font-bold tracking-wider uppercase transition-colors ${
-              activeTab === 'minuman' ? 'bg-amber-500 text-stone-950 shadow-md' : 'text-stone-400 hover:text-white'
-            }`}
+            className={`px-6 py-2.5 rounded-full text-sm font-bold tracking-wider uppercase transition-colors ${activeTab === 'minuman' ? 'bg-amber-500 text-stone-950 shadow-md' : 'text-stone-400 hover:text-white'
+              }`}
           >
             Minuman
           </button>
           <button
             onClick={() => setActiveTab('makanan')}
-            className={`px-6 py-2.5 rounded-full text-sm font-bold tracking-wider uppercase transition-colors ${
-              activeTab === 'makanan' ? 'bg-amber-500 text-stone-950 shadow-md' : 'text-stone-400 hover:text-white'
-            }`}
+            className={`px-6 py-2.5 rounded-full text-sm font-bold tracking-wider uppercase transition-colors ${activeTab === 'makanan' ? 'bg-amber-500 text-stone-950 shadow-md' : 'text-stone-400 hover:text-white'
+              }`}
           >
             Makanan
           </button>
           <button
             onClick={() => setActiveTab('beans')}
-            className={`px-6 py-2.5 rounded-full text-sm font-bold tracking-wider uppercase transition-colors ${
-              activeTab === 'beans' ? 'bg-amber-500 text-stone-950 shadow-md' : 'text-stone-400 hover:text-white'
-            }`}
+            className={`px-6 py-2.5 rounded-full text-sm font-bold tracking-wider uppercase transition-colors ${activeTab === 'beans' ? 'bg-amber-500 text-stone-950 shadow-md' : 'text-stone-400 hover:text-white'
+              }`}
           >
-            Beans
+            Roastery
           </button>
         </div>
       </div>

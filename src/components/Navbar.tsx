@@ -37,10 +37,11 @@ export default function Navbar({ logoUrl }: { logoUrl: string }) {
         >
           <Link href="/" onClick={() => setIsOpen(false)} className={`nav-link hover:text-amber-500 transition py-2 md:py-0 w-full block ${pathname === '/' ? 'text-amber-500' : ''}`}>Beranda</Link>
           <Link href="/katalog" onClick={() => setIsOpen(false)} className={`nav-link hover:text-amber-500 transition py-2 md:py-0 w-full block ${pathname === '/katalog' ? 'text-amber-500' : ''}`}>Katalog</Link>
-          <Link href="/#story" onClick={() => setIsOpen(false)} className="nav-link hover:text-amber-500 transition py-2 md:py-0 w-full block">Our Story</Link>
-          <Link href="/#best-seller" onClick={() => setIsOpen(false)} className="nav-link hover:text-amber-500 transition py-2 md:py-0 w-full block">Best Seller</Link>
-          <Link href="/#menu-kafe" onClick={() => setIsOpen(false)} className="nav-link hover:text-amber-500 transition py-2 md:py-0 w-full block">Menu Kafe</Link>
+          <Link href="/#story" onClick={() => setIsOpen(false)} className="nav-link hover:text-amber-500 transition py-2 md:py-0 w-full block">Filosofi</Link>
+          <Link href="/#best-seller" onClick={() => setIsOpen(false)} className="nav-link hover:text-amber-500 transition py-2 md:py-0 w-full block">Favorit</Link>
+          <Link href="/#menu-kafe" onClick={() => setIsOpen(false)} className="nav-link hover:text-amber-500 transition py-2 md:py-0 w-full block">Menu</Link>
           <Link href="/#roastery" onClick={() => setIsOpen(false)} className="nav-link hover:text-amber-500 transition py-2 md:py-0 w-full block">Roastery</Link>
+          <Link href="/#location" onClick={() => setIsOpen(false)} className="nav-link hover:text-amber-500 transition py-2 md:py-0 w-full block">Lokasi</Link>
         </div>
       </div>
     </nav>
