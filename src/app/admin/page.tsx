@@ -19,6 +19,13 @@ type Product = {
 export default function AdminDashboard() {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
+  const [deleteConfirmId, setDeleteConfirmId] = useState<string | null>(null);
+  const [notification, setNotification] = useState<{ message: string; type: 'success' | 'error' } | null>(null);
+
+  const showNotification = (message: string, type: 'success' | 'error' = 'success') => {
+    setNotification({ message, type });
+    setTimeout(() => setNotification(null), 3000);
+  };
 
   useEffect(() => {
     fetchProducts();
@@ -36,23 +43,25 @@ export default function AdminDashboard() {
       if (data) setProducts(data);
     } catch (error) {
       console.error('Error fetching products:', error);
-      alert('Gagal mengambil data produk dari Supabase.');
+      showNotification('Gagal mengambil data produk.', 'error');
     } finally {
       setLoading(false);
     }
   }
 
-  async function deleteProduct(id: string) {
-    if (!confirm('Apakah Anda yakin ingin menghapus produk ini?')) return;
+  async function confirmDelete() {
+    if (!deleteConfirmId) return;
     
     try {
-      const { error } = await supabase.from('products').delete().eq('id', id);
+      const { error } = await supabase.from('products').delete().eq('id', deleteConfirmId);
       if (error) throw error;
-      setProducts(products.filter(p => p.id !== id));
-      alert('Produk berhasil dihapus!');
+      setProducts(products.filter(p => p.id !== deleteConfirmId));
+      showNotification('Produk berhasil dihapus!');
     } catch (error) {
       console.error('Error deleting product:', error);
-      alert('Gagal menghapus produk. Pastikan akses tulis (RLS) diizinkan.');
+      showNotification('Gagal menghapus produk.', 'error');
+    } finally {
+      setDeleteConfirmId(null);
     }
   }
 
@@ -112,8 +121,12 @@ export default function AdminDashboard() {
                     </div>
                   </td>
                   <td className="p-4">
-                    <span className={`px-2 py-1 rounded-full text-xs font-medium ${product.category === 'coffee' ? 'bg-amber-100 text-amber-800' : 'bg-stone-200 text-stone-800'}`}>
-                      {product.category === 'coffee' ? 'Kopi' : 'Roastery'}
+                    <span className={`px-2 py-1 rounded-full text-xs font-medium ${
+                      product.category === 'coffee' ? 'bg-amber-100 text-amber-800' : 
+                      product.category === 'food' ? 'bg-orange-100 text-orange-800' : 
+                      'bg-stone-200 text-stone-800'
+                    }`}>
+                      {product.category === 'coffee' ? 'Minuman' : product.category === 'food' ? 'Makanan' : 'Roastery'}
                     </span>
                   </td>
                   <td className="p-4 text-stone-600 font-medium">{formatPrice(product.price)}</td>
@@ -134,7 +147,7 @@ export default function AdminDashboard() {
                         <i className="fa-solid fa-pen-to-square"></i>
                       </Link>
                       <button 
-                        onClick={() => deleteProduct(product.id)}
+                        onClick={() => setDeleteConfirmId(product.id)}
                         className="p-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors"
                         title="Hapus"
                       >
@@ -148,6 +161,52 @@ export default function AdminDashboard() {
           </table>
         )}
       </div>
+
+      {/* Delete Confirmation Modal */}
+      {deleteConfirmId && (
+        <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
+          <div className="bg-white rounded-xl shadow-xl max-w-sm w-full p-6 animate-in fade-in zoom-in-95 duration-200">
+            <div className="flex items-center gap-3 text-red-600 mb-4">
+              <div className="bg-red-100 p-2 rounded-full">
+                <i className="fa-solid fa-triangle-exclamation text-xl"></i>
+              </div>
+              <h3 className="text-lg font-bold text-stone-900">Hapus Produk?</h3>
+            </div>
+            <p className="text-stone-600 mb-6">
+              Apakah Anda yakin ingin menghapus produk ini? Tindakan ini tidak dapat dibatalkan.
+            </p>
+            <div className="flex justify-end gap-3">
+              <button 
+                onClick={() => setDeleteConfirmId(null)}
+                className="px-4 py-2 font-semibold text-stone-600 hover:bg-stone-100 rounded-lg transition-colors"
+              >
+                Batal
+              </button>
+              <button 
+                onClick={confirmDelete}
+                className="px-4 py-2 font-semibold text-white bg-red-600 hover:bg-red-700 rounded-lg transition-colors"
+              >
+                Ya, Hapus
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Toast Notification */}
+      {notification && (
+        <div className="fixed bottom-6 right-6 z-50 animate-in slide-in-from-bottom-5 fade-in duration-300">
+          <div className={`flex items-center gap-3 px-6 py-4 rounded-xl shadow-2xl ${
+            notification.type === 'success' ? 'bg-stone-900 text-white' : 'bg-red-600 text-white'
+          }`}>
+            <i className={`fa-solid ${notification.type === 'success' ? 'fa-circle-check text-amber-500' : 'fa-circle-xmark text-white'} text-xl`}></i>
+            <span className="font-medium tracking-wide">{notification.message}</span>
+            <button onClick={() => setNotification(null)} className="ml-4 text-stone-400 hover:text-white transition-colors">
+              <i className="fa-solid fa-xmark"></i>
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

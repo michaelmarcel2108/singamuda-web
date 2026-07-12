@@ -10,7 +10,7 @@ type ProductFormData = {
   name: string;
   slug: string;
   description: string;
-  price: number;
+  price: number | '';
   weight: string;
   image_url: string;
   is_best_seller: boolean;
@@ -31,24 +31,23 @@ const generateSlug = (text: string) => {
 export default function ProductForm({ initialData, isEdit = false }: Props) {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
+  const [notification, setNotification] = useState<{ message: string; type: 'success' | 'error' } | null>(null);
   const [imageFile, setImageFile] = useState<File | null>(null);
+
+  const showNotification = (message: string, type: 'success' | 'error' = 'success') => {
+    setNotification({ message, type });
+    setTimeout(() => setNotification(null), 3000);
+  };
   const [formData, setFormData] = useState<ProductFormData>({
     category: initialData?.category || 'coffee',
     name: initialData?.name || '',
     slug: initialData?.slug || '',
     description: initialData?.description || '',
-    price: initialData?.price || 0,
+    price: initialData?.price ?? '',
     weight: initialData?.weight || '',
     image_url: initialData?.image_url || '',
     is_best_seller: initialData?.is_best_seller || false,
   });
-
-  // Auto generate slug if not editing and name changes
-  useEffect(() => {
-    if (!isEdit && formData.name && !formData.slug) {
-      setFormData(prev => ({ ...prev, slug: generateSlug(formData.name) }));
-    }
-  }, [formData.name, isEdit, formData.slug]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     const { name, value, type } = e.target;
@@ -57,7 +56,10 @@ export default function ProductForm({ initialData, isEdit = false }: Props) {
       const checked = (e.target as HTMLInputElement).checked;
       setFormData(prev => ({ ...prev, [name]: checked }));
     } else if (name === 'price') {
-      setFormData(prev => ({ ...prev, [name]: Number(value) }));
+      setFormData(prev => ({ ...prev, [name]: value === '' ? '' : Number(value) }));
+    } else if (name === 'name' && !isEdit) {
+      // Auto-generate slug when name changes (only in New Product mode)
+      setFormData(prev => ({ ...prev, name: value, slug: generateSlug(value) }));
     } else {
       setFormData(prev => ({ ...prev, [name]: value }));
     }
@@ -104,6 +106,7 @@ export default function ProductForm({ initialData, isEdit = false }: Props) {
 
       const dataToSave = {
         ...formData,
+        price: formData.price === '' ? 0 : formData.price,
         image_url: finalImageUrl,
         weight: formData.category === 'roastery' ? formData.weight : null,
         updated_at: new Date().toISOString()
@@ -116,21 +119,23 @@ export default function ProductForm({ initialData, isEdit = false }: Props) {
           .eq('id', initialData.id);
         
         if (error) throw error;
-        alert('Produk berhasil diperbarui!');
+        showNotification('Produk berhasil diperbarui!');
       } else {
         const { error } = await supabase
           .from('products')
           .insert([dataToSave]);
         
         if (error) throw error;
-        alert('Produk berhasil ditambahkan!');
+        showNotification('Produk berhasil ditambahkan!');
       }
       
-      router.push('/admin');
-      router.refresh();
+      setTimeout(() => {
+        router.push('/admin');
+        router.refresh();
+      }, 1500);
     } catch (error: any) {
       console.error('Error saving product:', error);
-      alert(`Gagal menyimpan produk: ${error?.message || 'Periksa kembali koneksi, struktur tabel (apakah kolom slug sudah ada?), atau RLS Supabase.'}`);
+      showNotification(error?.message || 'Gagal menyimpan produk.', 'error');
     } finally {
       setLoading(false);
     }
@@ -148,7 +153,8 @@ export default function ProductForm({ initialData, isEdit = false }: Props) {
             className="w-full px-4 py-2 border border-stone-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500 outline-none"
             required
           >
-            <option value="coffee">Coffee Menu</option>
+            <option value="coffee">Minuman (Coffee Menu)</option>
+            <option value="food">Makanan (Food)</option>
             <option value="roastery">Roastery Product</option>
           </select>
         </div>
@@ -264,6 +270,21 @@ export default function ProductForm({ initialData, isEdit = false }: Props) {
           {loading ? 'Menyimpan...' : 'Simpan Produk'}
         </button>
       </div>
+
+      {/* Toast Notification */}
+      {notification && (
+        <div className="fixed bottom-6 right-6 z-50 animate-in slide-in-from-bottom-5 fade-in duration-300">
+          <div className={`flex items-center gap-3 px-6 py-4 rounded-xl shadow-2xl ${
+            notification.type === 'success' ? 'bg-stone-900 text-white' : 'bg-red-600 text-white'
+          }`}>
+            <i className={`fa-solid ${notification.type === 'success' ? 'fa-circle-check text-amber-500' : 'fa-circle-xmark text-white'} text-xl`}></i>
+            <span className="font-medium tracking-wide">{notification.message}</span>
+            <button onClick={() => setNotification(null)} className="ml-4 text-stone-400 hover:text-white transition-colors" type="button">
+              <i className="fa-solid fa-xmark"></i>
+            </button>
+          </div>
+        </div>
+      )}
     </form>
   );
 }

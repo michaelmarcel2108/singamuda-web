@@ -29,7 +29,7 @@ export default function Roastery({
           />
         </div>
       </div>
-      <div className="lg:col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-6">
+      <div className="lg:col-span-2 grid grid-cols-2 sm:grid-cols-3 gap-4 sm:gap-6">
         {products.length === 0 && (
           <p className="text-stone-500 text-center col-span-full">Belum ada produk roastery.</p>
         )}

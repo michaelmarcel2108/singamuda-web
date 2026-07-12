@@ -10,18 +10,30 @@ type SiteSettings = {
   hero_bg_url: string;
   story_img_url: string;
   roastery_img_url: string;
+  embed_tiktok: string;
+  embed_instagram: string;
+  embed_youtube: string;
 };
 
 export default function SettingsPage() {
   const router = useRouter();
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
+  const [notification, setNotification] = useState<{ message: string; type: 'success' | 'error' } | null>(null);
+
+  const showNotification = (message: string, type: 'success' | 'error' = 'success') => {
+    setNotification({ message, type });
+    setTimeout(() => setNotification(null), 3000);
+  };
   const [settings, setSettings] = useState<SiteSettings>({
     id: 1,
     logo_url: '',
     hero_bg_url: '',
     story_img_url: '',
-    roastery_img_url: ''
+    roastery_img_url: '',
+    embed_tiktok: '',
+    embed_instagram: '',
+    embed_youtube: ''
   });
 
   // State to hold temporary files before saving
@@ -117,14 +129,14 @@ export default function SettingsPage() {
 
       if (error) throw error;
       
-      alert('Pengaturan gambar berhasil disimpan!');
+      showNotification('Pengaturan berhasil disimpan!');
       
       // Clear file states since they are now uploaded
       setFiles({ logo_url: null, hero_bg_url: null, story_img_url: null, roastery_img_url: null });
       router.refresh();
     } catch (error: any) {
       console.error('Error saving settings:', error);
-      alert(`Terjadi kesalahan: ${error?.message || 'Pastikan RLS table site_settings diizinkan, dan bucket images sudah ada.'}`);
+      showNotification(error?.message || 'Gagal menyimpan pengaturan.', 'error');
     } finally {
       setSaving(false);
     }
@@ -137,12 +149,8 @@ export default function SettingsPage() {
   return (
     <div>
       <div className="mb-8">
-        <h1 className="text-3xl font-bold text-stone-900">Pengaturan Gambar</h1>
-        <p className="text-stone-500 mt-2">Pilih file gambar untuk tata letak halaman utama situs Anda.</p>
-        
-        <div className="mt-4 p-4 bg-amber-50 border border-amber-200 rounded-lg text-sm text-amber-800">
-          <strong>Perhatian:</strong> Pastikan Anda telah membuat <em>Storage Bucket</em> bernama <strong>images</strong> dan mengaturnya ke <strong>Public</strong> di dasbor Supabase Anda sebelum menyimpan gambar.
-        </div>
+        <h1 className="text-3xl font-bold text-stone-900">Pengaturan Gambar & Video</h1>
+        <p className="text-stone-500 mt-2">Pilih file gambar atau video untuk tata letak halaman utama situs Anda.</p>
       </div>
 
       <form onSubmit={handleSubmit} className="bg-white rounded-xl shadow-sm border border-stone-200 p-8 space-y-6 max-w-2xl">
@@ -164,15 +172,19 @@ export default function SettingsPage() {
 
           {/* HERO BG */}
           <div className="space-y-2 pb-4 border-b border-stone-100">
-            <label className="block text-sm font-semibold text-stone-700">Gambar Hero (Background Atas)</label>
+            <label className="block text-sm font-semibold text-stone-700">Gambar / Video Hero (Background Atas)</label>
             <input 
               type="file" 
-              accept="image/*"
+              accept="image/*,video/mp4,video/webm,video/ogg"
               onChange={(e) => handleFileChange(e, 'hero_bg_url')}
               className="w-full text-sm text-stone-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-amber-50 file:text-amber-700 hover:file:bg-amber-100 cursor-pointer outline-none"
             />
             {settings.hero_bg_url && (
-              <img src={settings.hero_bg_url} alt="Hero Preview" className="h-32 w-full mt-2 object-cover rounded-md border border-stone-200" />
+              settings.hero_bg_url.match(/\.(mp4|webm|ogg|mov)$/i) || (files.hero_bg_url && files.hero_bg_url.type.startsWith('video/')) ? (
+                <video src={settings.hero_bg_url} autoPlay muted loop playsInline className="h-32 w-full mt-2 object-cover rounded-md border border-stone-200" />
+              ) : (
+                <img src={settings.hero_bg_url} alt="Hero Preview" className="h-32 w-full mt-2 object-cover rounded-md border border-stone-200" />
+              )
             )}
           </div>
 
@@ -191,7 +203,7 @@ export default function SettingsPage() {
           </div>
 
           {/* ROASTERY IMAGE */}
-          <div className="space-y-2">
+          <div className="space-y-2 pb-4 border-b border-stone-100">
             <label className="block text-sm font-semibold text-stone-700">Gambar Roastery</label>
             <input 
               type="file" 
@@ -203,6 +215,44 @@ export default function SettingsPage() {
               <img src={settings.roastery_img_url} alt="Roastery Preview" className="h-32 w-full mt-2 object-cover rounded-md border border-stone-200" />
             )}
           </div>
+
+          <div className="pt-4 pb-2">
+            <h2 className="text-xl font-bold text-stone-900">Kode Embed Sosial Media</h2>
+            <p className="text-stone-500 text-sm mt-1">Tempel link embed dari media sosial. Biarkan kosong jika tidak ingin ditampilkan.</p>
+          </div>
+
+          {/* EMBED TIKTOK */}
+          <div className="space-y-2 pb-4 border-b border-stone-100">
+            <label className="block text-sm font-semibold text-stone-700">Embed TikTok</label>
+            <textarea 
+              value={settings.embed_tiktok || ''}
+              onChange={(e) => setSettings({ ...settings, embed_tiktok: e.target.value })}
+              placeholder='<blockquote className="tiktok-embed"...'
+              className="w-full h-32 p-3 text-sm border border-stone-200 rounded-md focus:ring-2 focus:ring-amber-500 focus:border-amber-500 outline-none"
+            />
+          </div>
+
+          {/* EMBED INSTAGRAM */}
+          <div className="space-y-2 pb-4 border-b border-stone-100">
+            <label className="block text-sm font-semibold text-stone-700">Embed Instagram</label>
+            <textarea 
+              value={settings.embed_instagram || ''}
+              onChange={(e) => setSettings({ ...settings, embed_instagram: e.target.value })}
+              placeholder='<blockquote class="instagram-media"...'
+              className="w-full h-32 p-3 text-sm border border-stone-200 rounded-md focus:ring-2 focus:ring-amber-500 focus:border-amber-500 outline-none"
+            />
+          </div>
+
+          {/* EMBED YOUTUBE */}
+          <div className="space-y-2">
+            <label className="block text-sm font-semibold text-stone-700">Embed YouTube (Atau Lainnya)</label>
+            <textarea 
+              value={settings.embed_youtube || ''}
+              onChange={(e) => setSettings({ ...settings, embed_youtube: e.target.value })}
+              placeholder='<iframe src="https://www.youtube.com/embed/..."...'
+              className="w-full h-32 p-3 text-sm border border-stone-200 rounded-md focus:ring-2 focus:ring-amber-500 focus:border-amber-500 outline-none"
+            />
+          </div>
           
         </div>
 
@@ -212,11 +262,24 @@ export default function SettingsPage() {
             disabled={saving}
             className="bg-amber-500 hover:bg-amber-600 text-stone-950 px-6 py-2 rounded-lg font-semibold transition-colors flex items-center gap-2 disabled:opacity-50"
           >
-            <i className="fa-solid fa-floppy-disk"></i>
             {saving ? 'Mengunggah & Menyimpan...' : 'Simpan Pengaturan'}
           </button>
         </div>
       </form>
+
+      {/* Toast Notification */}
+      {notification && (
+        <div className="fixed bottom-6 right-6 z-50 animate-in slide-in-from-bottom-5 fade-in duration-300">
+          <div className={`flex items-center gap-3 px-6 py-4 rounded-xl shadow-2xl ${
+            notification.type === 'success' ? 'bg-stone-900 text-white' : 'bg-red-600 text-white'
+          }`}>
+            <span className="font-medium tracking-wide">{notification.message}</span>
+            <button onClick={() => setNotification(null)} className="ml-4 text-stone-400 hover:text-white transition-colors" type="button">
+              <span className="text-xl leading-none">&times;</span>
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

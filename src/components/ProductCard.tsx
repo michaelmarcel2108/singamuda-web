@@ -65,9 +65,6 @@ export default function ProductCard({ product }: Props) {
           <span className="text-amber-500 font-black text-sm">{formatPrice(product.price)}</span>
           {product.weight && <span className="text-stone-500 text-xs ml-2">/ {product.weight}</span>}
         </div>
-        <span className="text-stone-500 text-[10px] uppercase font-bold tracking-wider">
-          <i className="fa-solid fa-chevron-right text-[10px] text-amber-500 hover:text-amber-400 transition cursor-pointer"></i>
-        </span>
       </div>
     </div>
   );

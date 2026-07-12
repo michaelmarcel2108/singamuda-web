@@ -7,6 +7,8 @@ import CoffeeMenu from "@/components/CoffeeMenu";
 import Roastery from "@/components/Roastery";
 import Footer from "@/components/Footer";
 
+import SocialReviews from "@/components/SocialReviews";
+
 export const revalidate = 60; // revalidate every 60 seconds
 
 export default async function Home() {
@@ -35,11 +37,14 @@ export default async function Home() {
     bgHero: settings?.hero_bg_url || "https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?q=80&w=1600",
     imgStory: settings?.story_img_url || "https://images.unsplash.com/photo-1442512595331-e89e73853f31?q=80&w=600",
     imgRoastery: settings?.roastery_img_url || "https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?q=80&w=600",
+    embedTiktok: settings?.embed_tiktok || "",
+    embedInstagram: settings?.embed_instagram || "",
+    embedYoutube: settings?.embed_youtube || "",
   };
 
   // Filter products by category and best seller flag
   const bestSellers = allProducts.filter(p => p.is_best_seller);
-  const coffeeMenu = allProducts.filter(p => p.category === 'coffee' && !p.is_best_seller).slice(0, 4); // Show top 4 non-best-seller coffee on home
+  const regularMenu = allProducts; // Pass all to CoffeeMenu, it will filter by tabs
   const roasteryProducts = allProducts.filter(p => p.category === 'roastery');
 
   return (
@@ -48,8 +53,13 @@ export default async function Home() {
       <Hero logoUrl={finalSettings.logoUrl} bgHero={finalSettings.bgHero} />
       <OurStory imgStory={finalSettings.imgStory} />
       <BestSellerSection bestSellers={bestSellers} />
-      <CoffeeMenu menuList={coffeeMenu} />
+      <CoffeeMenu menuList={regularMenu} />
       <Roastery imgRoastery={finalSettings.imgRoastery} products={roasteryProducts} />
+      <SocialReviews 
+        embedTiktok={finalSettings.embedTiktok}
+        embedInstagram={finalSettings.embedInstagram}
+        embedYoutube={finalSettings.embedYoutube}
+      />
       <Footer />
     </main>
   );
