@@ -16,14 +16,13 @@ export default function Location() {
         </div>
 
         <div className="bg-stone-950 p-2 sm:p-4 border border-stone-800/80 rounded-xl shadow-2xl">
-          <div className="aspect-video sm:aspect-[21/9] w-full bg-stone-900 rounded-lg overflow-hidden relative">
+          <div className="w-full h-[300px] sm:h-[400px] bg-stone-900 rounded-lg overflow-hidden">
             <iframe
               src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2737.376221368915!2d115.07505245683465!3d-8.116587785936773!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dd19b9d45983443%3A0x472862bbd84f407f!2sSingamuda%20Coffee!5e0!3m2!1sid!2sid!4v1783852951064!5m2!1sid!2sid"
               width="100%"
               height="100%"
               style={{ border: 0 }}
               allowFullScreen
-              className="absolute inset-0"
             ></iframe>
           </div>
           <div className="mt-4 sm:mt-6 text-center pb-2">
