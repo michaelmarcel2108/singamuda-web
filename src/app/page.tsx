@@ -36,6 +36,7 @@ export default async function Home() {
   const finalSettings = {
     logoUrl: settings?.logo_url || "https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?q=80&w=300",
     bgHero: settings?.hero_bg_url || "https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?q=80&w=1600",
+    bgHeroMobile: settings?.hero_bg_mobile_url || "",
     imgStory: settings?.story_img_url || "https://images.unsplash.com/photo-1442512595331-e89e73853f31?q=80&w=600",
     imgRoastery: settings?.roastery_img_url || "https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?q=80&w=600",
     embedTiktok: settings?.embed_tiktok || "",
@@ -51,7 +52,7 @@ export default async function Home() {
   return (
     <main>
       <Navbar logoUrl={finalSettings.logoUrl} />
-      <Hero logoUrl={finalSettings.logoUrl} bgHero={finalSettings.bgHero} />
+      <Hero logoUrl={finalSettings.logoUrl} bgHero={finalSettings.bgHero} bgHeroMobile={finalSettings.bgHeroMobile} />
       <OurStory imgStory={finalSettings.imgStory} />
       <BestSellerSection bestSellers={bestSellers} />
       <CoffeeMenu menuList={regularMenu} />

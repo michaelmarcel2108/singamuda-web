@@ -3,11 +3,12 @@
 import { useEffect, useState, useRef } from 'react';
 import { supabase } from '@/lib/supabase';
 import { useRouter } from 'next/navigation';
-
+import { revalidateHome } from '@/app/actions';
 type SiteSettings = {
   id: number;
   logo_url: string;
   hero_bg_url: string;
+  hero_bg_mobile_url?: string;
   story_img_url: string;
   roastery_img_url: string;
   embed_tiktok: string;
@@ -29,6 +30,7 @@ export default function SettingsPage() {
     id: 1,
     logo_url: '',
     hero_bg_url: '',
+    hero_bg_mobile_url: '',
     story_img_url: '',
     roastery_img_url: '',
     embed_tiktok: '',
@@ -40,11 +42,13 @@ export default function SettingsPage() {
   const [files, setFiles] = useState<{
     logo_url: File | null;
     hero_bg_url: File | null;
+    hero_bg_mobile_url: File | null;
     story_img_url: File | null;
     roastery_img_url: File | null;
   }>({
     logo_url: null,
     hero_bg_url: null,
+    hero_bg_mobile_url: null,
     story_img_url: null,
     roastery_img_url: null
   });
@@ -119,6 +123,7 @@ export default function SettingsPage() {
       // Upload files if there are any new ones selected
       if (files.logo_url) updatedSettings.logo_url = await uploadImage(files.logo_url);
       if (files.hero_bg_url) updatedSettings.hero_bg_url = await uploadImage(files.hero_bg_url);
+      if (files.hero_bg_mobile_url) updatedSettings.hero_bg_mobile_url = await uploadImage(files.hero_bg_mobile_url);
       if (files.story_img_url) updatedSettings.story_img_url = await uploadImage(files.story_img_url);
       if (files.roastery_img_url) updatedSettings.roastery_img_url = await uploadImage(files.roastery_img_url);
 
@@ -132,7 +137,11 @@ export default function SettingsPage() {
       showNotification('Pengaturan berhasil disimpan!');
       
       // Clear file states since they are now uploaded
-      setFiles({ logo_url: null, hero_bg_url: null, story_img_url: null, roastery_img_url: null });
+      setFiles({ logo_url: null, hero_bg_url: null, hero_bg_mobile_url: null, story_img_url: null, roastery_img_url: null });
+      
+      // Revalidate homepage cache to show new images immediately
+      await revalidateHome();
+      
       router.refresh();
     } catch (error: any) {
       console.error('Error saving settings:', error);
@@ -172,7 +181,7 @@ export default function SettingsPage() {
 
           {/* HERO BG */}
           <div className="space-y-2 pb-4 border-b border-stone-100">
-            <label className="block text-sm font-semibold text-stone-700">Gambar / Video Hero (Background Atas)</label>
+            <label className="block text-sm font-semibold text-stone-700">Gambar / Video Hero (Desktop)</label>
             <input 
               type="file" 
               accept="image/*,video/mp4,video/webm,video/ogg"
@@ -184,6 +193,24 @@ export default function SettingsPage() {
                 <video src={settings.hero_bg_url} autoPlay muted loop playsInline className="h-32 w-full mt-2 object-cover rounded-md border border-stone-200" />
               ) : (
                 <img src={settings.hero_bg_url} alt="Hero Preview" className="h-32 w-full mt-2 object-cover rounded-md border border-stone-200" />
+              )
+            )}
+          </div>
+
+          {/* HERO BG MOBILE */}
+          <div className="space-y-2 pb-4 border-b border-stone-100">
+            <label className="block text-sm font-semibold text-stone-700">Gambar / Video Hero (Mobile) - Opsional</label>
+            <input 
+              type="file" 
+              accept="image/*,video/mp4,video/webm,video/ogg"
+              onChange={(e) => handleFileChange(e, 'hero_bg_mobile_url')}
+              className="w-full text-sm text-stone-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-amber-50 file:text-amber-700 hover:file:bg-amber-100 cursor-pointer outline-none"
+            />
+            {settings.hero_bg_mobile_url && (
+              settings.hero_bg_mobile_url.match(/\.(mp4|webm|ogg|mov)$/i) || (files.hero_bg_mobile_url && files.hero_bg_mobile_url.type.startsWith('video/')) ? (
+                <video src={settings.hero_bg_mobile_url} autoPlay muted loop playsInline className="h-32 w-full mt-2 object-cover rounded-md border border-stone-200" />
+              ) : (
+                <img src={settings.hero_bg_mobile_url} alt="Hero Mobile Preview" className="h-32 w-full mt-2 object-cover rounded-md border border-stone-200" />
               )
             )}
           </div>

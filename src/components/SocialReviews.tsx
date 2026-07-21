@@ -8,6 +8,17 @@ export default function SocialReviews({ embedTiktok, embedInstagram, embedYoutub
   // Jika semuanya kosong, kita bisa memilih untuk tidak merender section ini sama sekali
   // Tapi untuk saat ini, kita tampilkan placeholder jika kosong.
 
+  const processEmbed = (html: string | undefined, platform: 'tiktok' | 'instagram') => {
+    if (!html) return '';
+    let processed = html;
+    if (platform === 'tiktok' && !processed.includes('data-theme=')) {
+      processed = processed.replace('<blockquote ', '<blockquote data-theme="dark" ');
+    } else if (platform === 'instagram' && !processed.includes('data-instgrm-theme=')) {
+      processed = processed.replace('<blockquote ', '<blockquote data-instgrm-theme="dark" ');
+    }
+    return processed;
+  };
+
   return (
     <section id="reviews" className="py-20 bg-stone-900 border-t border-stone-800">
       <div className="max-w-7xl mx-auto px-4 sm:px-8">
@@ -24,7 +35,7 @@ export default function SocialReviews({ embedTiktok, embedInstagram, embedYoutub
           {/* Slot untuk Embed TikTok */}
           <div className="w-full max-w-[320px] flex flex-col items-center justify-start min-h-[300px]">
             {embedTiktok ? (
-              <div suppressHydrationWarning dangerouslySetInnerHTML={{ __html: embedTiktok }} className="w-full flex justify-center overflow-hidden rounded-xl" />
+              <div suppressHydrationWarning dangerouslySetInnerHTML={{ __html: processEmbed(embedTiktok, 'tiktok') }} className="w-full flex justify-center overflow-hidden rounded-xl color-scheme-dark" style={{ colorScheme: 'dark' }} />
             ) : (
               <div className="w-full h-full border border-dashed border-stone-700/50 rounded-xl flex flex-col items-center justify-center p-4">
                 <i className="fa-brands fa-tiktok text-4xl text-stone-600 mb-4"></i>
@@ -38,7 +49,7 @@ export default function SocialReviews({ embedTiktok, embedInstagram, embedYoutub
           {/* Slot untuk Embed Instagram Reels */}
           <div className="w-full max-w-[320px] flex flex-col items-center justify-start min-h-[300px]">
             {embedInstagram ? (
-              <div suppressHydrationWarning dangerouslySetInnerHTML={{ __html: embedInstagram }} className="w-full flex justify-center overflow-hidden rounded-xl" />
+              <div suppressHydrationWarning dangerouslySetInnerHTML={{ __html: processEmbed(embedInstagram, 'instagram') }} className="w-full flex justify-center overflow-hidden rounded-xl color-scheme-dark" style={{ colorScheme: 'dark' }} />
             ) : (
               <div className="w-full h-full border border-dashed border-stone-700/50 rounded-xl flex flex-col items-center justify-center p-4">
                 <i className="fa-brands fa-instagram text-4xl text-stone-600 mb-4"></i>

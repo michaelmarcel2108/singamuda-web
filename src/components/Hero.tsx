@@ -1,27 +1,52 @@
-export default function Hero({ logoUrl, bgHero }: { logoUrl: string; bgHero: string }) {
-  const isVideo = bgHero && bgHero.match(/\.(mp4|webm|ogg|mov)$/i);
+export default function Hero({ logoUrl, bgHero, bgHeroMobile }: { logoUrl: string; bgHero: string; bgHeroMobile?: string }) {
+  const isVideoDesktop = bgHero && bgHero.match(/\.(mp4|webm|ogg|mov)$/i);
+  const isVideoMobile = bgHeroMobile && bgHeroMobile.match(/\.(mp4|webm|ogg|mov)$/i);
+  const mobileBgUrl = bgHeroMobile || bgHero; // Fallback to desktop if mobile not provided
+  const isVideoMob = isVideoMobile || (mobileBgUrl.match(/\.(mp4|webm|ogg|mov)$/i) && !bgHeroMobile); // fallback logic
 
   return (
     <section
       id="home"
       className="hero-bg relative h-screen flex items-center justify-center overflow-hidden"
     >
-      {isVideo ? (
-        <video
-          src={bgHero}
-          autoPlay
-          loop
-          muted
-          playsInline
-          className="absolute inset-0 w-full h-full object-cover"
-        />
-      ) : (
-        <div
-          className="absolute inset-0 w-full h-full bg-cover bg-center"
-          style={{ backgroundImage: `url('${bgHero || "https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?q=80&w=1600"}')` }}
-        />
-      )}
-      <div className="absolute inset-0 bg-stone-950/70"></div>
+      {/* Desktop Background */}
+      <div className="hidden sm:block absolute inset-0 w-full h-full">
+        {isVideoDesktop ? (
+          <video
+            src={bgHero}
+            autoPlay
+            loop
+            muted
+            playsInline
+            className="w-full h-full object-cover"
+          />
+        ) : (
+          <div
+            className="w-full h-full bg-cover bg-center"
+            style={{ backgroundImage: `url('${bgHero || "https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?q=80&w=1600"}')` }}
+          />
+        )}
+      </div>
+
+      {/* Mobile Background */}
+      <div className="block sm:hidden absolute inset-0 w-full h-full">
+        {isVideoMob ? (
+          <video
+            src={mobileBgUrl}
+            autoPlay
+            loop
+            muted
+            playsInline
+            className="w-full h-full object-cover"
+          />
+        ) : (
+          <div
+            className="w-full h-full bg-cover bg-center"
+            style={{ backgroundImage: `url('${mobileBgUrl || "https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?q=80&w=1600"}')` }}
+          />
+        )}
+      </div>
+      <div className="absolute inset-0 bg-stone-950/40"></div>
       <div className="relative z-10 text-center px-4 max-w-3xl flex flex-col items-center pt-16 space-y-4">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
@@ -32,7 +57,7 @@ export default function Hero({ logoUrl, bgHero }: { logoUrl: string; bgHero: str
         <h1 className="text-xl sm:text-3xl font-black tracking-widest text-white uppercase leading-none">
           SINGAMUDA COFFEE
         </h1>
-        <p className="text-stone-400 text-xs sm:text-sm max-w-xl mx-auto font-light leading-relaxed">
+        <p className="text-stone-300 text-xs sm:text-sm max-w-xl mx-auto font-bold leading-relaxed">
           Cerita kopi masa kini
         </p>
         <div className="pt-2 flex flex-col items-center gap-4">

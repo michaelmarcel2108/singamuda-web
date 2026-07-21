@@ -26,12 +26,7 @@ export default function ProductCard({ product }: Props) {
 
   return (
     <div className="bg-stone-950 border border-stone-800/60 p-3 sm:p-5 flex flex-row sm:flex-col justify-between gap-4 sm:gap-4 shadow-xl relative overflow-hidden group h-full">
-      {/* Badge BEST SELLER */}
-      {product.is_best_seller && (
-        <div className="absolute top-2 right-2 bg-amber-500 text-stone-950 font-black text-[8px] sm:text-[9px] px-1.5 sm:px-2 py-0.5 uppercase tracking-wider rounded-sm z-10">
-          <i className="fa-solid fa-star"></i> BEST SELLER
-        </div>
-      )}
+      {/* Badge BEST SELLER moved inside text area */}
 
       {/* Gambar & Deskripsi */}
       <div className="flex flex-row sm:flex-col gap-3 sm:space-y-3 w-full min-w-0 flex-grow">
@@ -45,6 +40,11 @@ export default function ProductCard({ product }: Props) {
         </div>
         <div className="space-y-1 flex-grow flex flex-col justify-between sm:justify-start min-w-0 pt-1 sm:pt-0">
           <div>
+            {product.is_best_seller && (
+              <div className="inline-block bg-amber-500 text-stone-950 font-black text-[8px] sm:text-[9px] px-1.5 py-0.5 uppercase tracking-wider rounded-sm mb-1">
+                <i className="fa-solid fa-star text-[8px]"></i> BEST SELLER
+              </div>
+            )}
             <h3 className="font-black text-sm sm:text-base text-white uppercase tracking-wide line-clamp-2 pr-2 sm:pr-0">
               {product.name}
             </h3>
