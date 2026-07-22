@@ -10,6 +10,7 @@ export type NewsItem = {
   category: string;
   image_url: string;
   description: string;
+  content: string;
   created_at: string;
 };
 
