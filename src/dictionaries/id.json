@@ -1,0 +1,72 @@
+{
+  "navbar": {
+    "home": "Beranda",
+    "catalog": "Katalog",
+    "news": "Berita",
+    "story": "Filosofi",
+    "best_seller": "Favorit",
+    "menu": "Menu",
+    "roastery": "Roastery",
+    "search_placeholder": "Cari produk...",
+    "login": "Masuk"
+  },
+  "hero": {
+    "title_1": "Kopi Murni.",
+    "title_2": "Cita Rasa Tinggi.",
+    "subtitle": "Kopi berkualitas tinggi yang disangrai dengan semangat. Nikmati pengalaman kopi tak terlupakan hanya di Singa Muda Coffee.",
+    "cta_primary": "Pesan Sekarang",
+    "cta_secondary": "Lihat Katalog"
+  },
+  "story": {
+    "title": "Filosofi Singa Muda Coffee",
+    "p1": "Singa Muda Coffee lahir dari kecintaan mendalam terhadap kekayaan biji kopi lokal Bali, khususnya daerah pegunungan Kintamani yang legendaris. Kami percaya bahwa setiap cangkir kopi membawa cerita tentang proses panjang dari petani, ketelitian sang roaster, hingga keahlian barista kami."
+  },
+  "best_seller": {
+    "title_1": "Pilihan",
+    "title_2": "Terfavorit",
+    "subtitle": "Kopi dan sajian andalan kami yang selalu jadi incaran pelanggan setiap hari.",
+    "view_catalog": "Lihat Katalog Penuh"
+  },
+  "coffee_menu": {
+    "title_1": "Menu",
+    "title_2": "Kafe",
+    "subtitle": "Beragam pilihan minuman kopi, non-kopi, serta kudapan lezat untuk menemani hari Anda.",
+    "view_catalog": "Lihat Menu Lengkap"
+  },
+  "roastery": {
+    "title_1": "Fresh",
+    "title_2": "Roastery",
+    "subtitle": "Biji kopi segar hasil sangrai sendiri untuk kebutuhan kafe dan kedai Anda. Kami melayani pembelian grosir (Wholesale).",
+    "view_products": "Lihat Produk Roastery"
+  },
+  "news": {
+    "title": "Berita & Aktivitas",
+    "subtitle": "Ikuti terus perkembangan terbaru dan kegiatan seru di Singa Muda Coffee.",
+    "read_more": "Baca Selengkapnya",
+    "view_all": "Lihat Semua",
+    "empty": "Belum ada berita yang diterbitkan.",
+    "back_to_news": "Kembali ke Berita"
+  },
+  "footer": {
+    "about_title": "Tentang Kami",
+    "about_desc": "Menyajikan kopi berkualitas dengan cita rasa Nusantara untuk menemani semangat harimu.",
+    "contact": "Hubungi Kami",
+    "social": "Sosial Media",
+    "copyright": "Singa Muda Coffee. Hak Cipta Dilindungi."
+  },
+  "catalog": {
+    "title_1": "Katalog",
+    "title_2": "Produk",
+    "subtitle": "Temukan semua sajian kopi, makanan, dan produk roastery terbaik kami.",
+    "search_results": "Hasil Pencarian untuk",
+    "category_all": "Semua Produk",
+    "category_coffee": "Kopi & Minuman",
+    "category_food": "Makanan & Snack",
+    "category_roastery": "Biji Kopi Roastery",
+    "empty": "Produk tidak ditemukan."
+  },
+  "product": {
+    "best_seller": "Terlaris",
+    "order_grab": "Pesan di GrabFood"
+  }
+}

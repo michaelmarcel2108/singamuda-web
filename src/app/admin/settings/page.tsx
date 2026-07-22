@@ -7,6 +7,7 @@ import { revalidateHome } from '@/app/actions';
 type SiteSettings = {
   id: number;
   logo_url: string;
+  hero_logo_url?: string;
   hero_bg_url: string;
   hero_bg_mobile_url?: string;
   story_img_url: string;
@@ -29,6 +30,7 @@ export default function SettingsPage() {
   const [settings, setSettings] = useState<SiteSettings>({
     id: 1,
     logo_url: '',
+    hero_logo_url: '',
     hero_bg_url: '',
     hero_bg_mobile_url: '',
     story_img_url: '',
@@ -41,12 +43,14 @@ export default function SettingsPage() {
   // State to hold temporary files before saving
   const [files, setFiles] = useState<{
     logo_url: File | null;
+    hero_logo_url: File | null;
     hero_bg_url: File | null;
     hero_bg_mobile_url: File | null;
     story_img_url: File | null;
     roastery_img_url: File | null;
   }>({
     logo_url: null,
+    hero_logo_url: null,
     hero_bg_url: null,
     hero_bg_mobile_url: null,
     story_img_url: null,
@@ -122,6 +126,7 @@ export default function SettingsPage() {
 
       // Upload files if there are any new ones selected
       if (files.logo_url) updatedSettings.logo_url = await uploadImage(files.logo_url);
+      if (files.hero_logo_url) updatedSettings.hero_logo_url = await uploadImage(files.hero_logo_url);
       if (files.hero_bg_url) updatedSettings.hero_bg_url = await uploadImage(files.hero_bg_url);
       if (files.hero_bg_mobile_url) updatedSettings.hero_bg_mobile_url = await uploadImage(files.hero_bg_mobile_url);
       if (files.story_img_url) updatedSettings.story_img_url = await uploadImage(files.story_img_url);
@@ -137,7 +142,7 @@ export default function SettingsPage() {
       showNotification('Pengaturan berhasil disimpan!');
       
       // Clear file states since they are now uploaded
-      setFiles({ logo_url: null, hero_bg_url: null, hero_bg_mobile_url: null, story_img_url: null, roastery_img_url: null });
+      setFiles({ logo_url: null, hero_logo_url: null, hero_bg_url: null, hero_bg_mobile_url: null, story_img_url: null, roastery_img_url: null });
       
       // Revalidate homepage cache to show new images immediately
       await revalidateHome();
@@ -176,6 +181,20 @@ export default function SettingsPage() {
             />
             {settings.logo_url && (
               <img src={settings.logo_url} alt="Logo Preview" className="h-16 mt-2 object-contain bg-stone-100 rounded-md p-2 border border-stone-200" />
+            )}
+          </div>
+
+          {/* HERO LOGO */}
+          <div className="space-y-2 pb-4 border-b border-stone-100">
+            <label className="block text-sm font-semibold text-stone-700">Logo Hero Section</label>
+            <input 
+              type="file" 
+              accept="image/*"
+              onChange={(e) => handleFileChange(e, 'hero_logo_url')}
+              className="w-full text-sm text-stone-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-amber-50 file:text-amber-700 hover:file:bg-amber-100 cursor-pointer outline-none"
+            />
+            {settings.hero_logo_url && (
+              <img src={settings.hero_logo_url} alt="Hero Logo Preview" className="h-16 mt-2 object-contain bg-stone-100 rounded-md p-2 border border-stone-200" />
             )}
           </div>
 

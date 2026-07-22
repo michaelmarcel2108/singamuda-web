@@ -1,4 +1,4 @@
-export default function Hero({ logoUrl, bgHero, bgHeroMobile }: { logoUrl: string; bgHero: string; bgHeroMobile?: string }) {
+export default function Hero({ logoUrl, bgHero, bgHeroMobile, dict }: { logoUrl: string; bgHero: string; bgHeroMobile?: string; dict?: any }) {
   const isVideoDesktop = bgHero && bgHero.match(/\.(mp4|webm|ogg|mov)$/i);
   const isVideoMobile = bgHeroMobile && bgHeroMobile.match(/\.(mp4|webm|ogg|mov)$/i);
   const mobileBgUrl = bgHeroMobile || bgHero; // Fallback to desktop if mobile not provided
@@ -50,22 +50,17 @@ export default function Hero({ logoUrl, bgHero, bgHeroMobile }: { logoUrl: strin
       <div className="relative z-10 text-center px-4 max-w-3xl flex flex-col items-center pt-16 space-y-4">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src={logoUrl || "https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?q=80&w=300"}
+          src={logoUrl || "/logo.png"}
           alt="Logo Utama"
-          className="w-36 h-36 sm:w-44 sm:h-44 rounded-full object-cover border border-amber-500/40 shadow-2xl mb-2 transition-all duration-300"
+          className="w-48 sm:w-64 object-contain mb-8 transition-all duration-300"
         />
-        <h1 className="text-xl sm:text-3xl font-black tracking-widest text-white uppercase leading-none">
-          SINGAMUDA COFFEE
-        </h1>
-        <p className="text-stone-300 text-xs sm:text-sm max-w-xl mx-auto font-bold leading-relaxed">
-          Cerita kopi masa kini
-        </p>
+
         <div className="pt-2 flex flex-col items-center gap-4">
           <a
             href="#menu-kafe"
             className="bg-amber-500 text-stone-950 text-xs font-black px-6 py-3 uppercase tracking-wider hover:bg-amber-400 transition inline-block"
           >
-            Lihat Menu Kami
+            {dict?.cta_primary || 'Lihat Menu Kami'}
           </a>
           <div className="flex items-center gap-6 mt-4">
             <a

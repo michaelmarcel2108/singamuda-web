@@ -1,15 +1,16 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import LanguageSwitcher from "./LanguageSwitcher";
 
-export default function Navbar({ logoUrl }: { logoUrl: string }) {
+export default function Navbar({ logoUrl, dict }: { logoUrl: string, dict?: any }) {
   const [isOpen, setIsOpen] = useState(false);
   const [activeHash, setActiveHash] = useState("");
   const pathname = usePathname();
 
-  import { useEffect } from "react";
+
   useEffect(() => {
     setActiveHash(window.location.hash);
     const handleHashChange = () => setActiveHash(window.location.hash);
@@ -30,38 +31,80 @@ export default function Navbar({ logoUrl }: { logoUrl: string }) {
 
   return (
     <nav className="fixed top-0 left-0 w-full z-50 bg-stone-950/90 backdrop-blur-md border-b border-stone-800 text-xs uppercase tracking-widest">
-      <div className="max-w-7xl mx-auto px-4 sm:px-8 py-4 flex justify-between items-center relative">
-        <div className="flex items-center gap-3 z-50">
+      <div className="max-w-7xl mx-auto px-4 sm:px-8 py-4 flex items-center justify-between relative">
+        
+        {/* Left: Logo */}
+        <div className="flex-1 flex items-center justify-start z-50">
           <Link href="/#home" onClick={() => handleNavClick("#home")} className="flex items-center gap-3">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={logoUrl || "https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?q=80&w=300"}
               alt="Logo"
-              className="w-8 h-8 rounded-full object-cover border border-amber-500/30"
+              className="w-12 h-12 sm:w-14 sm:h-14 rounded-full object-cover border border-amber-500/30"
             />
-            <span className="font-black text-amber-500 tracking-wider">SINGAMUDA COFFEE</span>
           </Link>
         </div>
 
-        <button
-          onClick={() => setIsOpen(!isOpen)}
-          className="md:hidden text-stone-400 hover:text-white focus:outline-none p-1 z-50"
-          aria-label="Toggle Menu"
-        >
-          <i className="fa-solid fa-bars text-lg"></i>
-        </button>
+        {/* Center: Desktop Links */}
+        <div className="hidden md:flex flex-1 items-center justify-center gap-6 lg:gap-8 font-medium">
+          <Link href="/#home" className={`nav-link hover:text-amber-500 transition ${isActive('/', '') ? 'text-amber-500' : ''}`}>{dict?.home || 'Beranda'}</Link>
+          <Link href="/katalog" className={`nav-link hover:text-amber-500 transition ${isActive('/katalog', '') ? 'text-amber-500' : ''}`}>{dict?.catalog || 'Katalog'}</Link>
+          <Link href="/berita" className={`nav-link hover:text-amber-500 transition ${isActive('/berita', '') ? 'text-amber-500' : ''}`}>{dict?.news || 'Berita'}</Link>
+          <Link href="/#story" className={`nav-link hover:text-amber-500 transition ${isActive('/', '#story') ? 'text-amber-500' : ''}`}>{dict?.story || 'Filosofi'}</Link>
+          <Link href="/#best-seller" className={`nav-link hover:text-amber-500 transition ${isActive('/', '#best-seller') ? 'text-amber-500' : ''}`}>{dict?.best_seller || 'Favorit'}</Link>
+          <Link href="/#menu-kafe" className={`nav-link hover:text-amber-500 transition ${isActive('/', '#menu-kafe') ? 'text-amber-500' : ''}`}>{dict?.menu || 'Menu'}</Link>
+          <Link href="/#roastery" className={`nav-link hover:text-amber-500 transition ${isActive('/', '#roastery') ? 'text-amber-500' : ''}`}>{dict?.roastery || 'Roastery'}</Link>
+        </div>
 
+        {/* Right: Search & Mobile Menu Toggle */}
+        <div className="flex-1 flex items-center justify-end gap-4 z-50">
+          <form action="/katalog" method="GET" className="relative hidden sm:block">
+            <input 
+              type="text" 
+              name="q"
+              placeholder={dict?.search_placeholder || "Cari..."}
+              className="bg-stone-900 border border-stone-800 text-white text-xs rounded-full px-4 py-2 focus:outline-none focus:border-amber-500 w-32 md:w-40 lg:w-48 transition-all"
+            />
+            <button type="submit" className="absolute right-3 top-1/2 -translate-y-1/2 text-stone-400 hover:text-amber-500">
+              <i className="fa-solid fa-search"></i>
+            </button>
+          </form>
+
+          <LanguageSwitcher />
+
+          <button
+            onClick={() => setIsOpen(!isOpen)}
+            className="md:hidden text-stone-400 hover:text-white focus:outline-none p-1"
+            aria-label="Toggle Menu"
+          >
+            <i className="fa-solid fa-bars text-lg"></i>
+          </button>
+        </div>
+
+        {/* Mobile Dropdown Menu */}
         <div
           className={`${isOpen ? "flex" : "hidden"
-            } md:flex flex-col md:flex-row absolute md:relative top-full left-0 right-0 md:top-auto md:left-auto md:right-auto bg-stone-950/95 md:bg-transparent border-b border-stone-800 md:border-none p-6 md:p-0 items-center gap-6 md:gap-8 font-medium w-full md:w-auto box-border text-center`}
+            } md:hidden flex-col absolute top-full left-0 right-0 bg-stone-950/95 border-b border-stone-800 p-6 items-center gap-6 font-medium text-center shadow-2xl`}
         >
-          <Link href="/#home" onClick={() => handleNavClick("#home")} className={`nav-link hover:text-amber-500 transition py-2 md:py-0 w-full block ${isActive('/', '') ? 'text-amber-500' : ''}`}>Beranda</Link>
-          <Link href="/katalog" onClick={() => handleNavClick("")} className={`nav-link hover:text-amber-500 transition py-2 md:py-0 w-full block ${isActive('/katalog', '') ? 'text-amber-500' : ''}`}>Katalog</Link>
-          <Link href="/#story" onClick={() => handleNavClick("#story")} className={`nav-link hover:text-amber-500 transition py-2 md:py-0 w-full block ${isActive('/', '#story') ? 'text-amber-500' : ''}`}>Filosofi</Link>
-          <Link href="/#best-seller" onClick={() => handleNavClick("#best-seller")} className={`nav-link hover:text-amber-500 transition py-2 md:py-0 w-full block ${isActive('/', '#best-seller') ? 'text-amber-500' : ''}`}>Favorit</Link>
-          <Link href="/#menu-kafe" onClick={() => handleNavClick("#menu-kafe")} className={`nav-link hover:text-amber-500 transition py-2 md:py-0 w-full block ${isActive('/', '#menu-kafe') ? 'text-amber-500' : ''}`}>Menu</Link>
-          <Link href="/#roastery" onClick={() => handleNavClick("#roastery")} className={`nav-link hover:text-amber-500 transition py-2 md:py-0 w-full block ${isActive('/', '#roastery') ? 'text-amber-500' : ''}`}>Roastery</Link>
-          <Link href="/#location" onClick={() => handleNavClick("#location")} className={`nav-link hover:text-amber-500 transition py-2 md:py-0 w-full block ${isActive('/', '#location') ? 'text-amber-500' : ''}`}>Lokasi</Link>
+          <form action="/katalog" method="GET" className="relative w-full mb-2 sm:hidden">
+            <input 
+              type="text" 
+              name="q"
+              placeholder={dict?.search_placeholder || "Cari produk..."}
+              className="bg-stone-900 border border-stone-800 text-white text-xs rounded-full px-4 py-3 focus:outline-none focus:border-amber-500 w-full transition-all"
+            />
+            <button type="submit" className="absolute right-4 top-1/2 -translate-y-1/2 text-stone-400 hover:text-amber-500">
+              <i className="fa-solid fa-search"></i>
+            </button>
+          </form>
+
+          <Link href="/#home" onClick={() => handleNavClick("#home")} className={`nav-link hover:text-amber-500 transition w-full block ${isActive('/', '') ? 'text-amber-500' : ''}`}>{dict?.home || 'Beranda'}</Link>
+          <Link href="/katalog" onClick={() => handleNavClick("")} className={`nav-link hover:text-amber-500 transition w-full block ${isActive('/katalog', '') ? 'text-amber-500' : ''}`}>{dict?.catalog || 'Katalog'}</Link>
+          <Link href="/berita" onClick={() => handleNavClick("")} className={`nav-link hover:text-amber-500 transition w-full block ${isActive('/berita', '') ? 'text-amber-500' : ''}`}>{dict?.news || 'Berita'}</Link>
+          <Link href="/#story" onClick={() => handleNavClick("#story")} className={`nav-link hover:text-amber-500 transition w-full block ${isActive('/', '#story') ? 'text-amber-500' : ''}`}>{dict?.story || 'Filosofi'}</Link>
+          <Link href="/#best-seller" onClick={() => handleNavClick("#best-seller")} className={`nav-link hover:text-amber-500 transition w-full block ${isActive('/', '#best-seller') ? 'text-amber-500' : ''}`}>{dict?.best_seller || 'Favorit'}</Link>
+          <Link href="/#menu-kafe" onClick={() => handleNavClick("#menu-kafe")} className={`nav-link hover:text-amber-500 transition w-full block ${isActive('/', '#menu-kafe') ? 'text-amber-500' : ''}`}>{dict?.menu || 'Menu'}</Link>
+          <Link href="/#roastery" onClick={() => handleNavClick("#roastery")} className={`nav-link hover:text-amber-500 transition w-full block ${isActive('/', '#roastery') ? 'text-amber-500' : ''}`}>{dict?.roastery || 'Roastery'}</Link>
         </div>
       </div>
     </nav>

@@ -14,6 +14,7 @@ type ProductFormData = {
   weight: string;
   image_url: string;
   is_best_seller: boolean;
+  grab_link: string;
 };
 
 type Props = {
@@ -47,6 +48,7 @@ export default function ProductForm({ initialData, isEdit = false }: Props) {
     weight: initialData?.weight || '',
     image_url: initialData?.image_url || '',
     is_best_seller: initialData?.is_best_seller || false,
+    grab_link: initialData?.grab_link || '',
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
@@ -213,6 +215,19 @@ export default function ProductForm({ initialData, isEdit = false }: Props) {
             />
           </div>
         )}
+
+        <div className="space-y-2 md:col-span-2">
+          <label className="block text-sm font-semibold text-stone-700">Link Grab (Opsional)</label>
+          <input 
+            type="url" 
+            name="grab_link" 
+            value={formData.grab_link} 
+            onChange={handleChange}
+            placeholder="Contoh: https://grab.onelink.me/..."
+            className="w-full px-4 py-2 border border-stone-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500 outline-none"
+          />
+          <p className="text-xs text-stone-500">Link untuk mengarahkan pembeli ke produk ini di GrabFood.</p>
+        </div>
 
         <div className="space-y-2 md:col-span-2">
           <label className="block text-sm font-semibold text-stone-700">Deskripsi Singkat</label>

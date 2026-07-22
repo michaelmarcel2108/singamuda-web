@@ -1,11 +1,16 @@
 import ProductCard from "./ProductCard";
+import Link from 'next/link';
 
 export default function Roastery({
   imgRoastery,
   products,
+  dict,
+  dictProduct
 }: {
   imgRoastery: string;
   products: any[];
+  dict?: any;
+  dictProduct?: any;
 }) {
   return (
     <section id="roastery" className="max-w-7xl mx-auto px-4 sm:px-8 py-20 sm:py-28 grid grid-cols-1 lg:grid-cols-3 gap-12">
@@ -13,12 +18,11 @@ export default function Roastery({
         <span className="text-xs font-black tracking-widest text-amber-500 uppercase">
           Whole Bean & Grounds
         </span>
-        <h2 className="text-2xl sm:text-4xl font-black text-white tracking-tight uppercase leading-tight">
-          BIJI KOPI PILIHAN (ROASTERY)
+        <h2 className="text-3xl sm:text-4xl font-black text-amber-500 uppercase tracking-widest">
+          {dict?.title_1 || 'FRESH'} <span className="text-white">{dict?.title_2 || 'ROASTERY'}</span>
         </h2>
-        <p className="text-stone-400 text-sm leading-relaxed">
-          Bawa pulang cita rasa kopi terbaik. Kami menyangrai sendiri seluruh biji kopi dalam jumlah
-          kecil untuk memastikan kesegaran optimal.
+        <p className="text-stone-400 mt-3 max-w-2xl mx-auto">
+          {dict?.subtitle || 'Biji kopi segar hasil sangrai sendiri untuk kebutuhan kafe dan kedai Anda. Kami melayani pembelian grosir (Wholesale).'}
         </p>
         <div className="aspect-video bg-stone-950 border border-stone-800/80 p-2 mt-4">
           {/* eslint-disable-next-line @next/next/no-img-element */}

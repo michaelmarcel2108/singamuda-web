@@ -1,0 +1,72 @@
+{
+  "navbar": {
+    "home": "Home",
+    "catalog": "Catalog",
+    "news": "News",
+    "story": "Story",
+    "best_seller": "Favorites",
+    "menu": "Menu",
+    "roastery": "Roastery",
+    "search_placeholder": "Search products...",
+    "login": "Login"
+  },
+  "hero": {
+    "title_1": "Pure Coffee.",
+    "title_2": "Exceptional Taste.",
+    "subtitle": "High-quality coffee roasted with passion. Enjoy an unforgettable coffee experience only at Singa Muda Coffee.",
+    "cta_primary": "Order Now",
+    "cta_secondary": "View Catalog"
+  },
+  "story": {
+    "title": "Singa Muda Coffee Philosophy",
+    "p1": "Singa Muda Coffee was born from a deep love for the rich local coffee beans of Bali, specifically the legendary Kintamani mountains. We believe that every cup of coffee carries a long story, from the farmers' dedication, the roaster's precision, to our baristas' expertise."
+  },
+  "best_seller": {
+    "title_1": "Our",
+    "title_2": "Favorites",
+    "subtitle": "Our signature coffee and treats that customers hunt for every single day.",
+    "view_catalog": "View Full Catalog"
+  },
+  "coffee_menu": {
+    "title_1": "Cafe",
+    "title_2": "Menu",
+    "subtitle": "A wide selection of coffee, non-coffee beverages, and delicious snacks to accompany your day.",
+    "view_catalog": "View Full Menu"
+  },
+  "roastery": {
+    "title_1": "Fresh",
+    "title_2": "Roastery",
+    "subtitle": "Freshly roasted coffee beans for your cafe and shop needs. We serve wholesale purchases.",
+    "view_products": "View Roastery Products"
+  },
+  "news": {
+    "title": "News & Activities",
+    "subtitle": "Follow the latest updates and exciting events at Singa Muda Coffee.",
+    "read_more": "Read More",
+    "view_all": "View All",
+    "empty": "No news has been published yet.",
+    "back_to_news": "Back to News"
+  },
+  "footer": {
+    "about_title": "About Us",
+    "about_desc": "Serving quality coffee with authentic Indonesian taste to fuel your spirit.",
+    "contact": "Contact Us",
+    "social": "Social Media",
+    "copyright": "Singa Muda Coffee. All Rights Reserved."
+  },
+  "catalog": {
+    "title_1": "Product",
+    "title_2": "Catalog",
+    "subtitle": "Discover all our best coffee, food, and roastery products.",
+    "search_results": "Search Results for",
+    "category_all": "All Products",
+    "category_coffee": "Coffee & Beverages",
+    "category_food": "Food & Snacks",
+    "category_roastery": "Roasted Coffee Beans",
+    "empty": "No products found."
+  },
+  "product": {
+    "best_seller": "Best Seller",
+    "order_grab": "Order on GrabFood"
+  }
+}

@@ -3,7 +3,7 @@
 import { useState } from "react";
 import ProductCard from "./ProductCard";
 
-export default function CoffeeMenu({ menuList }: { menuList: any[] }) {
+export default function CoffeeMenu({ menuList, dict, dictProduct }: { menuList: any[]; dict?: any; dictProduct?: any }) {
   const [activeTab, setActiveTab] = useState<'minuman' | 'makanan' | 'beans'>('minuman');
 
   // Filter based on category
@@ -20,9 +20,12 @@ export default function CoffeeMenu({ menuList }: { menuList: any[] }) {
         <span className="text-xs font-black tracking-widest text-amber-500 uppercase">
           Freshly Brewed & Prepared
         </span>
-        <h2 className="text-2xl sm:text-3xl font-black text-white uppercase tracking-tight">
-          VARIASI MENU
+        <h2 className="text-3xl sm:text-4xl font-black text-amber-500 uppercase tracking-widest">
+          {dict?.title_1 || 'MENU'} <span className="text-white">{dict?.title_2 || 'KAFE'}</span>
         </h2>
+        <p className="text-stone-400 mt-3 max-w-2xl mx-auto">
+          {dict?.subtitle || 'Beragam pilihan minuman kopi, non-kopi, serta kudapan lezat untuk menemani hari Anda.'}
+        </p>
       </div>
 
       {/* Tabs */}
