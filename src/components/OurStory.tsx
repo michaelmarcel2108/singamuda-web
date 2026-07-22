@@ -9,10 +9,10 @@ export default function OurStory({ imgStory, dict }: { imgStory: string; dict?: 
           Sejarah & Filosofi
         </span>
         <h2 className="text-2xl sm:text-4xl font-black text-white tracking-tight uppercase leading-tight">
-          {dict?.title || "FILOSOFI SINGA MUDA COFFEE"}
+          {dict?.title || "FILOSOFI SINGAMUDA COFFEE"}
         </h2>
         <p className="text-stone-400 text-sm leading-relaxed">
-          {dict?.p1 || "Singa Muda Coffee lahir dari kecintaan mendalam terhadap kekayaan biji kopi lokal Bali..."}
+          {dict?.p1 || "Singamuda Coffee lahir dari kecintaan mendalam terhadap kekayaan biji kopi lokal Bali..."}
         </p>
       </div>
       <div className="w-full max-w-md mx-auto bg-stone-950 border border-stone-800/80 p-2">
