@@ -47,13 +47,13 @@ export default function Navbar({ logoUrl, dict }: { logoUrl: string, dict?: any 
 
         {/* Center: Desktop Links */}
         <div className="hidden md:flex flex-1 items-center justify-center gap-6 lg:gap-8 font-medium">
-          <Link href="/#home" className={`nav-link hover:text-amber-500 transition ${isActive('/', '') ? 'text-amber-500' : ''}`}>{dict?.home || 'Beranda'}</Link>
-          <Link href="/katalog" className={`nav-link hover:text-amber-500 transition ${isActive('/katalog', '') ? 'text-amber-500' : ''}`}>{dict?.catalog || 'Katalog'}</Link>
-          <Link href="/berita" className={`nav-link hover:text-amber-500 transition ${isActive('/berita', '') ? 'text-amber-500' : ''}`}>{dict?.news || 'Berita'}</Link>
-          <Link href="/#story" className={`nav-link hover:text-amber-500 transition ${isActive('/', '#story') ? 'text-amber-500' : ''}`}>{dict?.story || 'Filosofi'}</Link>
-          <Link href="/#best-seller" className={`nav-link hover:text-amber-500 transition ${isActive('/', '#best-seller') ? 'text-amber-500' : ''}`}>{dict?.best_seller || 'Favorit'}</Link>
-          <Link href="/#menu-kafe" className={`nav-link hover:text-amber-500 transition ${isActive('/', '#menu-kafe') ? 'text-amber-500' : ''}`}>{dict?.menu || 'Menu'}</Link>
-          <Link href="/#roastery" className={`nav-link hover:text-amber-500 transition ${isActive('/', '#roastery') ? 'text-amber-500' : ''}`}>{dict?.roastery || 'Roastery'}</Link>
+          <Link href="/#home" onClick={() => handleNavClick("#home")} className={`nav-link hover:text-amber-500 transition ${isActive('/', '') ? 'text-amber-500' : ''}`}>{dict?.home || 'Beranda'}</Link>
+          <Link href="/katalog" onClick={() => handleNavClick("")} className={`nav-link hover:text-amber-500 transition ${isActive('/katalog', '') ? 'text-amber-500' : ''}`}>{dict?.catalog || 'Katalog'}</Link>
+          <Link href="/berita" onClick={() => handleNavClick("")} className={`nav-link hover:text-amber-500 transition ${isActive('/berita', '') ? 'text-amber-500' : ''}`}>{dict?.news || 'Berita'}</Link>
+          <Link href="/#story" onClick={() => handleNavClick("#story")} className={`nav-link hover:text-amber-500 transition ${isActive('/', '#story') ? 'text-amber-500' : ''}`}>{dict?.story || 'Filosofi'}</Link>
+          <Link href="/#best-seller" onClick={() => handleNavClick("#best-seller")} className={`nav-link hover:text-amber-500 transition ${isActive('/', '#best-seller') ? 'text-amber-500' : ''}`}>{dict?.best_seller || 'Favorit'}</Link>
+          <Link href="/#menu-kafe" onClick={() => handleNavClick("#menu-kafe")} className={`nav-link hover:text-amber-500 transition ${isActive('/', '#menu-kafe') ? 'text-amber-500' : ''}`}>{dict?.menu || 'Menu'}</Link>
+          <Link href="/#roastery" onClick={() => handleNavClick("#roastery")} className={`nav-link hover:text-amber-500 transition ${isActive('/', '#roastery') ? 'text-amber-500' : ''}`}>{dict?.roastery || 'Roastery'}</Link>
         </div>
 
         {/* Right: Search & Mobile Menu Toggle */}

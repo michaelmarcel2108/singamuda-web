@@ -13,7 +13,7 @@ import Location from "@/components/Location";
 import { cookies } from "next/headers";
 import { getDictionary } from "@/lib/dictionaries";
 
-export const revalidate = 60; // revalidate every 60 seconds
+export const revalidate = 0; // Disable cache so admin changes appear immediately
 
 export default async function Home() {
   const cookieStore = await cookies();

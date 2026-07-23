@@ -5,7 +5,7 @@ import ProductCard from "@/components/ProductCard";
 import { cookies } from "next/headers";
 import { getDictionary } from "@/lib/dictionaries";
 
-export const revalidate = 60;
+export const revalidate = 0; // Disable cache so admin changes appear immediately
 
 export const metadata = {
   title: "Katalog Produk - Singa Muda Coffee",
