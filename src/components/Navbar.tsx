@@ -2,13 +2,25 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import LanguageSwitcher from "./LanguageSwitcher";
 
 export default function Navbar({ logoUrl, dict }: { logoUrl: string, dict?: any }) {
   const [isOpen, setIsOpen] = useState(false);
   const [activeHash, setActiveHash] = useState("");
   const pathname = usePathname();
+  const router = useRouter();
+
+  const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    const q = formData.get("q") as string;
+    if (q && q.trim()) {
+      router.push(`/katalog?q=${encodeURIComponent(q.trim())}`);
+    } else {
+      router.push("/katalog");
+    }
+  };
 
 
   useEffect(() => {
@@ -58,7 +70,7 @@ export default function Navbar({ logoUrl, dict }: { logoUrl: string, dict?: any 
 
         {/* Right: Search & Mobile Menu Toggle */}
         <div className="flex-1 flex items-center justify-end gap-4 z-50">
-          <form action="/katalog" method="GET" className="relative hidden sm:block">
+          <form onSubmit={handleSearch} className="relative hidden sm:block">
             <input 
               type="text" 
               name="q"
@@ -86,7 +98,7 @@ export default function Navbar({ logoUrl, dict }: { logoUrl: string, dict?: any 
           className={`${isOpen ? "flex" : "hidden"
             } md:hidden flex-col absolute top-full left-0 right-0 bg-stone-950/95 border-b border-stone-800 p-6 items-center gap-6 font-medium text-center shadow-2xl`}
         >
-          <form action="/katalog" method="GET" className="relative w-full mb-2 sm:hidden">
+          <form onSubmit={handleSearch} className="relative w-full mb-2 sm:hidden">
             <input 
               type="text" 
               name="q"
