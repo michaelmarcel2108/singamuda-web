@@ -9,6 +9,7 @@ import NewsSection from "@/components/NewsSection";
 import Footer from "@/components/Footer";
 
 import SocialReviews from "@/components/SocialReviews";
+import Testimonials from "@/components/Testimonials";
 import Location from "@/components/Location";
 import { cookies } from "next/headers";
 import { getDictionary } from "@/lib/dictionaries";
@@ -75,6 +76,7 @@ export default async function Home() {
         embedInstagram={finalSettings.embedInstagram}
         embedYoutube={finalSettings.embedYoutube}
       />
+      <Testimonials />
       <Location />
       <Footer dict={dict.footer} />
     </main>

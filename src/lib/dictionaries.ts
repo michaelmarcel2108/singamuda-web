@@ -1,9 +1,11 @@
 import id from '@/dictionaries/id.json';
 import en from '@/dictionaries/en.json';
+import zh from '@/dictionaries/zh.json';
 
 const dictionaries = {
   id,
   en,
+  zh,
 };
 
 export type Locale = keyof typeof dictionaries;

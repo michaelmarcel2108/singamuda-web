@@ -3,8 +3,31 @@ import { cookies } from "next/headers";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Singa Muda Coffee",
-  description: "Singa Muda Coffee - Freshly Brewed Every Day",
+  title: "Singa Muda Coffee - Freshly Brewed Every Day",
+  description: "Nikmati kopi terbaik dari Singa Muda Coffee. Kami menyajikan kopi segar berkualitas setiap hari dengan berbagai pilihan rasa untuk menemani hari Anda.",
+  keywords: ["Singa Muda Coffee", "Kopi", "Coffee Shop", "Kopi Segar", "Cafe", "Tempat Ngopi", "Kopi Nusantara", "Specialty Coffee"],
+  authors: [{ name: "Singa Muda Coffee" }],
+  openGraph: {
+    title: "Singa Muda Coffee",
+    description: "Nikmati kopi terbaik dari Singa Muda Coffee. Kami menyajikan kopi segar berkualitas setiap hari.",
+    url: "https://singamudacoffee.com",
+    siteName: "Singa Muda Coffee",
+    images: [
+      {
+        url: "/logo.png",
+        width: 512,
+        height: 512,
+        alt: "Singa Muda Coffee Logo",
+      }
+    ],
+    locale: "id_ID",
+    type: "website",
+  },
+  icons: {
+    icon: "/logo.png",
+    apple: "/logo.png",
+    shortcut: "/logornd.png",
+  },
 };
 
 export default async function RootLayout({

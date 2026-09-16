@@ -1,3 +1,7 @@
+'use client';
+
+import ReviewForm from './ReviewForm';
+
 interface SocialReviewsProps {
   embedTiktok?: string;
   embedInstagram?: string;
@@ -5,6 +9,7 @@ interface SocialReviewsProps {
 }
 
 export default function SocialReviews({ embedTiktok, embedInstagram, embedYoutube }: SocialReviewsProps) {
+
   // Jika semuanya kosong, kita bisa memilih untuk tidak merender section ini sama sekali
   // Tapi untuk saat ini, kita tampilkan placeholder jika kosong.
 
@@ -22,7 +27,7 @@ export default function SocialReviews({ embedTiktok, embedInstagram, embedYoutub
   return (
     <section id="reviews" className="py-20 bg-stone-900 border-t border-stone-800">
       <div className="max-w-7xl mx-auto px-4 sm:px-8">
-        <div className="text-center mb-12">
+        <div className="text-center mb-12 flex flex-col items-center">
           <h2 className="text-2xl sm:text-4xl font-black text-amber-500 uppercase tracking-widest mb-4">
             Social Review
           </h2>
@@ -77,6 +82,10 @@ export default function SocialReviews({ embedTiktok, embedInstagram, embedYoutub
 
         <script async src="https://www.tiktok.com/embed.js"></script>
         <script async src="//www.instagram.com/embed.js"></script>
+      </div>
+
+      <div className="max-w-2xl mx-auto px-4 sm:px-8 mt-16">
+        <ReviewForm />
       </div>
     </section>
   );

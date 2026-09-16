@@ -1,0 +1,72 @@
+{
+  "navbar": {
+    "home": "主页",
+    "catalog": "目录",
+    "news": "新闻",
+    "story": "我们的故事",
+    "best_seller": "最畅销",
+    "menu": "菜单",
+    "roastery": "烘焙坊",
+    "search_placeholder": "搜索产品...",
+    "login": "登录"
+  },
+  "hero": {
+    "title_1": "纯正咖啡.",
+    "title_2": "绝佳口感.",
+    "subtitle": "充满热情烘焙的高品质咖啡。仅在 Singa Muda Coffee 享受难忘的咖啡体验。",
+    "cta_primary": "立即订购",
+    "cta_secondary": "查看目录"
+  },
+  "story": {
+    "title": "Singamuda Coffee 的哲学",
+    "p1": "Singamuda Coffee 诞生于对巴厘岛丰富本土咖啡豆（尤其是传奇的金塔马尼山区）的深爱。我们相信，每一杯咖啡都承载着一个漫长的故事，从农民的辛勤、烘焙师的细致，到我们咖啡师的精湛技艺。"
+  },
+  "best_seller": {
+    "title_1": "最受",
+    "title_2": "欢迎",
+    "subtitle": "我们每天都深受顾客喜爱的招牌咖啡和美食。",
+    "view_catalog": "查看完整目录"
+  },
+  "coffee_menu": {
+    "title_1": "咖啡馆",
+    "title_2": "菜单",
+    "subtitle": "多种咖啡、非咖啡饮料以及美味小吃，陪伴您的一天。",
+    "view_catalog": "查看完整菜单"
+  },
+  "roastery": {
+    "title_1": "新鲜",
+    "title_2": "烘焙坊",
+    "subtitle": "我们自家烘焙的新鲜咖啡豆，满足您的咖啡馆和商店需求。我们提供批发服务。",
+    "view_products": "查看烘焙产品"
+  },
+  "news": {
+    "title": "新闻与活动",
+    "subtitle": "关注 Singa Muda Coffee 的最新动态和精彩活动。",
+    "read_more": "阅读更多",
+    "view_all": "查看全部",
+    "empty": "暂无新闻发布。",
+    "back_to_news": "返回新闻"
+  },
+  "footer": {
+    "about_title": "关于我们",
+    "about_desc": "提供高品质、具有正宗印尼风味的咖啡，激发您的活力。",
+    "contact": "联系我们",
+    "social": "社交媒体",
+    "copyright": "Singa Muda Coffee. 保留所有权利。"
+  },
+  "catalog": {
+    "title_1": "产品",
+    "title_2": "目录",
+    "subtitle": "发现我们所有最好的咖啡、食品和烘焙产品。",
+    "search_results": "搜索结果为",
+    "category_all": "所有产品",
+    "category_coffee": "咖啡与饮料",
+    "category_food": "食品与小吃",
+    "category_roastery": "烘焙咖啡豆",
+    "empty": "未找到产品。"
+  },
+  "product": {
+    "best_seller": "最畅销",
+    "order_grab": "在 GrabFood 订购"
+  }
+}

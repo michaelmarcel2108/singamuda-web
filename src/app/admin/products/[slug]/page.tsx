@@ -46,7 +46,7 @@ export default function EditProductPage({ params }: { params: Promise<{ slug: st
         <h1 className="text-3xl font-bold text-stone-900">Edit Produk</h1>
         <p className="text-stone-500 mt-2">Ubah informasi produk di bawah ini.</p>
       </div>
-      
+
       {product && (
         <ProductForm initialData={product} isEdit={true} />
       )}

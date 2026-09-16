@@ -43,6 +43,12 @@ export default function LanguageSwitcher() {
         >
           EN (Eng)
         </button>
+        <button 
+          onClick={() => changeLanguage('zh')}
+          className={`block w-full whitespace-nowrap text-left px-4 py-2 text-sm hover:bg-stone-800 transition-colors ${currentLang === 'zh' ? 'text-amber-500 font-bold' : 'text-stone-300'}`}
+        >
+          ZH (中文)
+        </button>
       </div>
     </div>
   );
