@@ -1,4 +1,14 @@
-export default function OurStory({ imgStory, dict }: { imgStory: string; dict?: any }) {
+export default function OurStory({ 
+  imgStory, 
+  title,
+  content,
+  dict 
+}: { 
+  imgStory: string; 
+  title?: string;
+  content?: string;
+  dict?: any 
+}) {
   return (
     <section
       id="story"
@@ -6,13 +16,13 @@ export default function OurStory({ imgStory, dict }: { imgStory: string; dict?: 
     >
       <div className="space-y-6">
         <span className="text-xs font-black tracking-widest text-amber-500 uppercase">
-          Sejarah & Filosofi
+          {dict?.header || "Tentang Kami"}
         </span>
         <h2 className="text-2xl sm:text-4xl font-black text-white tracking-tight uppercase leading-tight">
-          {dict?.title || "FILOSOFI SINGAMUDA COFFEE"}
+          {title || dict?.title || "TENTANG SINGAMUDA COFFEE"}
         </h2>
-        <p className="text-stone-400 text-sm leading-relaxed">
-          {dict?.p1 || "Singamuda Coffee lahir dari kecintaan mendalam terhadap kekayaan biji kopi lokal Bali..."}
+        <p className="text-stone-400 text-sm leading-relaxed whitespace-pre-line">
+          {content || dict?.p1 || "Singamuda Coffee lahir dari kecintaan mendalam terhadap kekayaan biji kopi lokal Bali..."}
         </p>
       </div>
       <div className="w-full max-w-md mx-auto bg-stone-950 border border-stone-800/80 p-2">

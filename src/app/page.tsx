@@ -66,7 +66,12 @@ export default async function Home() {
     <main>
       <Navbar logoUrl={finalSettings.logoUrl} dict={dict.navbar} />
       <Hero logoUrl={finalSettings.heroLogoUrl} bgHero={finalSettings.bgHero} bgHeroMobile={finalSettings.bgHeroMobile} dict={dict.hero} />
-      <OurStory imgStory={finalSettings.imgStory} dict={dict.story} />
+      <OurStory 
+        imgStory={finalSettings.imgStory} 
+        title={settings?.about_title}
+        content={settings?.about_desc}
+        dict={dict.story} 
+      />
       <BestSellerSection bestSellers={bestSellers} dict={dict.best_seller} dictProduct={dict.product} />
       <CoffeeMenu menuList={regularMenu} dict={dict.coffee_menu} dictProduct={dict.product} />
       <Roastery imgRoastery={finalSettings.imgRoastery} products={roasteryProducts} dict={dict.roastery} dictProduct={dict.product} />

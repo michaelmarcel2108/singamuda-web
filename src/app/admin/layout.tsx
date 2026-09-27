@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { supabase } from '@/lib/supabase';
 import AdminGuard from '@/components/AdminGuard';
+import LogoutButton from '@/components/LogoutButton';
 
 export const revalidate = 60; // revalidate every 60 seconds
 
@@ -46,6 +47,9 @@ export default async function AdminLayout({
             >
               Manajemen Testimoni
             </Link>
+            <div className="pt-4 mt-4 border-t border-stone-800">
+              <LogoutButton />
+            </div>
           </nav>
           <div className="p-4 border-t border-stone-800 text-sm text-stone-500">
             <Link href="/" className="block hover:text-stone-300 transition-colors">

@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
@@ -41,9 +41,12 @@ export default function LoginPage() {
         <div className="text-center mb-10">
           <Link href="/" className="inline-block group">
             <div className="flex justify-center items-center gap-3 mb-2">
-              <div className="w-10 h-10 rounded-full bg-stone-800 border border-amber-500/30 flex items-center justify-center group-hover:scale-105 group-hover:border-amber-500/50 transition-all duration-300">
-                <span className="text-amber-500 font-bold text-xl">S</span>
-              </div>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img 
+                src="/logornd.png" 
+                alt="Singa Muda Logo"
+                className="w-14 h-14 object-contain group-hover:scale-105 transition-all duration-300"
+              />
               <h1 className="text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r from-amber-200 to-amber-600 tracking-wider">
                 SINGAMUDA
               </h1>

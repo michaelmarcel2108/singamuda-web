@@ -3,7 +3,7 @@
     "home": "Home",
     "catalog": "Catalog",
     "news": "News",
-    "story": "Story",
+    "story": "About",
     "best_seller": "Favorites",
     "menu": "Menu",
     "roastery": "Roastery",
@@ -18,7 +18,8 @@
     "cta_secondary": "View Catalog"
   },
   "story": {
-    "title": "Singamuda Coffee Philosophy",
+    "header": "About Us",
+    "title": "ABOUT SINGAMUDA COFFEE",
     "p1": "Singamuda Coffee was born from a deep love for the rich local coffee beans of Bali, specifically the legendary Kintamani mountains. We believe that every cup of coffee carries a long story, from the farmers' dedication, the roaster's precision, to our baristas' expertise."
   },
   "best_seller": {

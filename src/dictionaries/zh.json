@@ -3,7 +3,7 @@
     "home": "主页",
     "catalog": "目录",
     "news": "新闻",
-    "story": "我们的故事",
+    "story": "关于我们",
     "best_seller": "最畅销",
     "menu": "菜单",
     "roastery": "烘焙坊",
@@ -18,7 +18,8 @@
     "cta_secondary": "查看目录"
   },
   "story": {
-    "title": "Singamuda Coffee 的哲学",
+    "header": "关于我们",
+    "title": "关于 SINGAMUDA COFFEE",
     "p1": "Singamuda Coffee 诞生于对巴厘岛丰富本土咖啡豆（尤其是传奇的金塔马尼山区）的深爱。我们相信，每一杯咖啡都承载着一个漫长的故事，从农民的辛勤、烘焙师的细致，到我们咖啡师的精湛技艺。"
   },
   "best_seller": {

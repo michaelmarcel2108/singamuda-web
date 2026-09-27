@@ -15,6 +15,8 @@ type SiteSettings = {
   embed_tiktok: string;
   embed_instagram: string;
   embed_youtube: string;
+  about_title?: string;
+  about_desc?: string;
 };
 
 export default function SettingsPage() {
@@ -37,7 +39,9 @@ export default function SettingsPage() {
     roastery_img_url: '',
     embed_tiktok: '',
     embed_instagram: '',
-    embed_youtube: ''
+    embed_youtube: '',
+    about_title: '',
+    about_desc: ''
   });
 
   // State to hold temporary files before saving
@@ -235,6 +239,32 @@ export default function SettingsPage() {
           </div>
 
           {/* STORY IMAGE */}
+          <div className="pt-4 pb-2">
+            <h2 className="text-xl font-bold text-stone-900">Bagian Tentang Kami (Our Story)</h2>
+            <p className="text-stone-500 text-sm mt-1">Ubah judul, teks, dan gambar untuk bagian Tentang Kami.</p>
+          </div>
+
+          <div className="space-y-2 pb-4 border-b border-stone-100">
+            <label className="block text-sm font-semibold text-stone-700">Judul Tentang Kami</label>
+            <input 
+              type="text" 
+              value={settings.about_title || ''}
+              onChange={(e) => setSettings({ ...settings, about_title: e.target.value })}
+              placeholder="Contoh: TENTANG SINGAMUDA COFFEE"
+              className="w-full p-3 text-sm border border-stone-200 rounded-md focus:ring-2 focus:ring-amber-500 focus:border-amber-500 outline-none"
+            />
+          </div>
+
+          <div className="space-y-2 pb-4 border-b border-stone-100">
+            <label className="block text-sm font-semibold text-stone-700">Teks / Deskripsi Tentang Kami</label>
+            <textarea 
+              value={settings.about_desc || ''}
+              onChange={(e) => setSettings({ ...settings, about_desc: e.target.value })}
+              placeholder="Ceritakan sejarah atau filosofi di sini..."
+              className="w-full h-32 p-3 text-sm border border-stone-200 rounded-md focus:ring-2 focus:ring-amber-500 focus:border-amber-500 outline-none"
+            />
+          </div>
+
           <div className="space-y-2 pb-4 border-b border-stone-100">
             <label className="block text-sm font-semibold text-stone-700">Gambar Cerita (Our Story)</label>
             <input 
