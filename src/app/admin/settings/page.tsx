@@ -10,7 +10,6 @@ type SiteSettings = {
   hero_logo_url?: string;
   hero_bg_url: string;
   hero_bg_mobile_url?: string;
-  story_img_url: string;
   roastery_img_url: string;
   embed_tiktok: string;
   embed_instagram: string;
@@ -35,7 +34,6 @@ export default function SettingsPage() {
     hero_logo_url: '',
     hero_bg_url: '',
     hero_bg_mobile_url: '',
-    story_img_url: '',
     roastery_img_url: '',
     embed_tiktok: '',
     embed_instagram: '',
@@ -50,14 +48,12 @@ export default function SettingsPage() {
     hero_logo_url: File | null;
     hero_bg_url: File | null;
     hero_bg_mobile_url: File | null;
-    story_img_url: File | null;
     roastery_img_url: File | null;
   }>({
     logo_url: null,
     hero_logo_url: null,
     hero_bg_url: null,
     hero_bg_mobile_url: null,
-    story_img_url: null,
     roastery_img_url: null
   });
 
@@ -133,7 +129,6 @@ export default function SettingsPage() {
       if (files.hero_logo_url) updatedSettings.hero_logo_url = await uploadImage(files.hero_logo_url);
       if (files.hero_bg_url) updatedSettings.hero_bg_url = await uploadImage(files.hero_bg_url);
       if (files.hero_bg_mobile_url) updatedSettings.hero_bg_mobile_url = await uploadImage(files.hero_bg_mobile_url);
-      if (files.story_img_url) updatedSettings.story_img_url = await uploadImage(files.story_img_url);
       if (files.roastery_img_url) updatedSettings.roastery_img_url = await uploadImage(files.roastery_img_url);
 
       // Save to database
@@ -146,7 +141,7 @@ export default function SettingsPage() {
       showNotification('Pengaturan berhasil disimpan!');
       
       // Clear file states since they are now uploaded
-      setFiles({ logo_url: null, hero_logo_url: null, hero_bg_url: null, hero_bg_mobile_url: null, story_img_url: null, roastery_img_url: null });
+      setFiles({ logo_url: null, hero_logo_url: null, hero_bg_url: null, hero_bg_mobile_url: null, roastery_img_url: null });
       
       // Revalidate homepage cache to show new images immediately
       await revalidateHome();
@@ -238,45 +233,7 @@ export default function SettingsPage() {
             )}
           </div>
 
-          {/* STORY IMAGE */}
-          <div className="pt-4 pb-2">
-            <h2 className="text-xl font-bold text-stone-900">Bagian Tentang Kami (Our Story)</h2>
-            <p className="text-stone-500 text-sm mt-1">Ubah judul, teks, dan gambar untuk bagian Tentang Kami.</p>
-          </div>
 
-          <div className="space-y-2 pb-4 border-b border-stone-100">
-            <label className="block text-sm font-semibold text-stone-700">Judul Tentang Kami</label>
-            <input 
-              type="text" 
-              value={settings.about_title || ''}
-              onChange={(e) => setSettings({ ...settings, about_title: e.target.value })}
-              placeholder="Contoh: TENTANG SINGAMUDA COFFEE"
-              className="w-full p-3 text-sm border border-stone-200 rounded-md focus:ring-2 focus:ring-amber-500 focus:border-amber-500 outline-none"
-            />
-          </div>
-
-          <div className="space-y-2 pb-4 border-b border-stone-100">
-            <label className="block text-sm font-semibold text-stone-700">Teks / Deskripsi Tentang Kami</label>
-            <textarea 
-              value={settings.about_desc || ''}
-              onChange={(e) => setSettings({ ...settings, about_desc: e.target.value })}
-              placeholder="Ceritakan sejarah atau filosofi di sini..."
-              className="w-full h-32 p-3 text-sm border border-stone-200 rounded-md focus:ring-2 focus:ring-amber-500 focus:border-amber-500 outline-none"
-            />
-          </div>
-
-          <div className="space-y-2 pb-4 border-b border-stone-100">
-            <label className="block text-sm font-semibold text-stone-700">Gambar Cerita (Our Story)</label>
-            <input 
-              type="file" 
-              accept="image/*"
-              onChange={(e) => handleFileChange(e, 'story_img_url')}
-              className="w-full text-sm text-stone-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-amber-50 file:text-amber-700 hover:file:bg-amber-100 cursor-pointer outline-none"
-            />
-            {settings.story_img_url && (
-              <img src={settings.story_img_url} alt="Story Preview" className="h-32 w-full mt-2 object-cover rounded-md border border-stone-200" />
-            )}
-          </div>
 
           {/* ROASTERY IMAGE */}
           <div className="space-y-2 pb-4 border-b border-stone-100">

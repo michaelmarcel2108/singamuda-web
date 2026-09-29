@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { supabase } from '@/lib/supabase';
 import AdminGuard from '@/components/AdminGuard';
 import LogoutButton from '@/components/LogoutButton';
+import AdminSidebarNav from '@/components/AdminSidebarNav';
 
 export const revalidate = 60; // revalidate every 60 seconds
 
@@ -22,35 +23,12 @@ export default async function AdminLayout({
             <img src={logoUrl} alt="Logo" className="w-8 h-8 rounded-full object-cover border border-amber-500/30" />
             <span className="font-black text-amber-500 tracking-wider">SINGAMUDA</span>
           </div>
-          <nav className="flex-1 p-4 space-y-2">
-            <Link 
-              href="/admin" 
-              className="block px-4 py-3 rounded-lg hover:bg-stone-800 transition-colors font-medium text-stone-300 hover:text-white"
-            >
-              Manajemen Produk
-            </Link>
-            <Link 
-              href="/admin/news" 
-              className="block px-4 py-3 rounded-lg hover:bg-stone-800 transition-colors font-medium text-stone-300 hover:text-white"
-            >
-              Manajemen Berita
-            </Link>
-            <Link 
-              href="/admin/settings" 
-              className="block px-4 py-3 rounded-lg hover:bg-stone-800 transition-colors font-medium text-stone-300 hover:text-white"
-            >
-              Pengaturan Gambar
-            </Link>
-            <Link 
-              href="/admin/testimonials" 
-              className="block px-4 py-3 rounded-lg hover:bg-stone-800 transition-colors font-medium text-stone-300 hover:text-white"
-            >
-              Manajemen Testimoni
-            </Link>
-            <div className="pt-4 mt-4 border-t border-stone-800">
+          <AdminSidebarNav />
+          <div className="px-4 pb-4">
+            <div className="pt-4 border-t border-stone-800">
               <LogoutButton />
             </div>
-          </nav>
+          </div>
           <div className="p-4 border-t border-stone-800 text-sm text-stone-500">
             <Link href="/" className="block hover:text-stone-300 transition-colors">
               &larr; Kembali ke Web

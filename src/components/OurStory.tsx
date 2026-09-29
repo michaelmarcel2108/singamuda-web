@@ -1,3 +1,5 @@
+import Link from 'next/link';
+
 export default function OurStory({ 
   imgStory, 
   title,
@@ -24,6 +26,14 @@ export default function OurStory({
         <p className="text-stone-400 text-sm leading-relaxed whitespace-pre-line">
           {content || dict?.p1 || "Singamuda Coffee lahir dari kecintaan mendalam terhadap kekayaan biji kopi lokal Bali..."}
         </p>
+        <div className="pt-4">
+          <Link
+            href="/tentang"
+            className="inline-flex items-center justify-center bg-amber-500 hover:bg-amber-600 text-stone-950 font-bold px-6 py-3 transition-colors duration-300"
+          >
+            {dict?.read_more || "Baca Selengkapnya"}
+          </Link>
+        </div>
       </div>
       <div className="w-full max-w-md mx-auto bg-stone-950 border border-stone-800/80 p-2">
         <div className="aspect-square overflow-hidden">
